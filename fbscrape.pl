@@ -3,26 +3,29 @@
 #shyft
 #07JAN12
 use WWW::Mechanize;
+use Getopt::Long;
 my $mech = WWW::Mechanize->new();
 
 
 #use mobile site so that there is less to parse through
 $url = "http://m.facebook.com/";
 #change to your information
-$username = '<your email here>';
-$password = '<your pass here>';
+$username = '';
+$password = '';
+$help = '';
+$friend = '';
 
+GetOptions("user=s"=>\$username, "pass=s"=>\$password, "friend=s"=\$friend, "url=s"=>\$url, "help"=>\$help);
 
-if($ARGV[0] eq "-h") #help
+if($help || $username eq "" || $password eq "") #help
 {
-    print "facebook scraper\n\t./fbscrape.pl --scrape your stories\n\t./fbscrape.pl [facebook_id] --scrape a friends pages\n";
+    print "
+    facebook scraper
+    ./fbscrape.pl --user <username> --pass <password> [--friend <url for friends photo page>]
+    
+";
     exit();
 }
-if($ARGV[0] eq "-f") #a friends page
-{
-    #
-}    
-
 
 
 $mech = WWW::Mechanize->new();
@@ -47,7 +50,7 @@ $raw = $dump; #for debugging;
 
 if($dump =~ m/<b>You are trying too often.  Please try again later.<\/b>/)
 {
-    print "\ngot caught spamming... wait a little bit before trying again\n";
+    print "\ngot caught spamming... wait a little bit (an hour is what it took my account to unlock) before trying again\n";
    # exit();
 }
 
@@ -65,7 +68,7 @@ $raw = substr($raw,$start,$len); #get just the contents of the <body> tag
 
 #--------------------------------------
 
-$raw =~ s/[^[:ascii:]]+//g; #remove non-ascii characters. solves "wide character print error; looks better without this
+#$raw =~ s/[^[:ascii:]]+//g; #remove non-ascii characters. solves "wide character print error; looks better without this
 
 #render html-escaped shit properly
 $raw =~ s/&#039;/'/g; 
