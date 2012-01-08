@@ -4,7 +4,9 @@
 #07JAN12
 use WWW::Mechanize;
 use Getopt::Long;
-my $mech = WWW::Mechanize->new();
+$mech = WWW::Mechanize->new();
+
+binmode STDOUT, ":utf8";
 
 
 #use mobile site so that there is less to parse through
@@ -15,7 +17,7 @@ $password = '';
 $help = '';
 $friend = '';
 
-GetOptions("user=s"=>\$username, "pass=s"=>\$password, "friend=s"=\$friend, "url=s"=>\$url, "help"=>\$help);
+GetOptions("user=s"=>\$username, "pass=s"=>\$password, "friend=s"=>\$friend, "url=s"=>\$url, "help"=>\$help);
 
 if($help || $username eq "" || $password eq "") #help
 {
@@ -74,12 +76,15 @@ $raw = substr($raw,$start,$len); #get just the contents of the <body> tag
 $raw =~ s/&#039;/'/g; 
 $raw =~ s/&qout;/"/g;
 $raw =~ s/&nbsp;/ /g;
+$raw =~ s/&amp;/&/g;
 $raw =~ s/>/> /g;
 $raw =~ s/&gt;/>/g;
-$raw =~ s/<div/\n\t<div/g; #keep the divs in place
+#$raw =~ s/<div/\n\t<div/g; #keep the divs in place
 
 #now remove all remaining html tags but kinda keep formatting
-$raw =~ s/<.+?>//g; 
+#$raw =~ s/<.+?>//g; 
+
+#$raw =~ s/<div class="msg">(.+?)<\/div>/<\/post>\n<post>\n/g;
 
 #show it. grep it. love it. Welcome to Ball-Mart.
 print "$raw\n";
