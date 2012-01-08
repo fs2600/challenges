@@ -1,0 +1,15 @@
+#!/usr/bin/perl
+
+open(file,"starmap.input.dat");
+
+$count = 0;
+while(<file>)
+{
+	if($count % 80 == 0 )
+	{
+		print "\n";
+	}
+	$_ = tr/0/ /;
+	print $_;
+	$count++;
+}

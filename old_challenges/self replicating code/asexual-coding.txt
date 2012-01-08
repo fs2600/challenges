@@ -1,0 +1,17 @@
+Is My Computer A-Sexual?
+==================================
+SCENARIO:	You have been suspected of commiting a computer crime that you didn't 
+			commit --or, at least didn't fess up to. Before the feds kick the door in, you must take 
+			some action that can help clear your name --or, at lesat take some of the heat off of you.
+
+TASK:		Write a program/virus (semantics, i know) that, once released onto the host machine, will 
+			replicate and attempt to fill as much harddrive space and memory as possible in an attempt
+			to crash it.
+			HINT FROM SHYFT - quine
+			HINT FROM SHYFT - It doesn't have to actually crash it, but you will notice a change in 
+							  performance 
+
+POINTS:		25 Pts
+			Points will not be awarded on time of completion nor the efficiency of code, 
+			however, if a clever or novel solution is produced the judge may award bonus 
+			points not to exceed 50% of challenge value.

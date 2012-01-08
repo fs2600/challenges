@@ -1,0 +1,18 @@
+MoDi5ed Rainbows
+===============
+SCENARIO:	The file 'given.dat' was retrieved from a computer system in /home/.j0hnnyW/.adminpasswds/
+			given the name and location of the file you feel that it may have some pertinent information.
+			Due to 
+
+TASK: 		Given 2 files (encrypted file and wordlist) write a program or script that 
+			reveals the plaintext. You may accomplish this task by brute-forcing the keys using 	
+			MD5 rainbow tables.
+
+GIVEN:		wordlist.txt
+			given.dat
+			encrypted with md5 algorithm
+
+POINTS:		35 Pts
+			Points will not be awarded on time of completion nor the efficiency of code, 
+			however, if a clever or novel solution is produced the judge may award bonus 
+			points not to exceed 50% of challenge value.

@@ -1,0 +1,54 @@
+#!/usr/bin/perl
+#md5_crak.pl
+
+#ft smith 2600 programming challenge
+#shyft 2008
+#md5 brute forcer
+
+if(scalar(@ARGV) < 3)
+{
+	print "\t\t\t\tMD5_CRAK\n\t\t\tTool to bruteforce md5 hashed words \n\t-shyft 2008\n\nusage:\n\./md5_crak.pl <wordlist> <rainbow_table> <hash_to_crack>\n\n./md5_crak.pl <wordlist> <rainbow_table> -f <given_file>\n";
+	exit();
+}
+
+open(wFILE,"<$ARGV[0]");
+open(rtFILE,"<$ARGV[1]");
+
+@words = <wFILE>;
+@hashed_word = <rtFILE>;
+
+$hash_to_crack = $ARGV[2];
+$num_words = scalar(@words);
+
+chomp($hash_to_crack);
+
+for($i=0;$i<$num_words;$i++)
+{
+	chomp($hashed_word[$i]);
+
+	if("$hashed_word[$i]" eq "$hash_to_crack")
+	{
+		print "  $words[$i]\n";
+	}
+}
+
+#	13Apr08 -	added the ability to read from a file
+#		 	its REAL sloppy code though	
+if($ARGV[2] = '-f')
+{
+	open(GIVEN, "<$ARGV[3]");
+	@given_hashes = <GIVEN>;
+	$num_given = scalar(@given_hashes);
+	for($i=0;$i<$num_given;$i++)
+	{
+		chomp($given_hashes[$i]);
+		for($j=0;$j<$num_words;$j++)
+		{
+			chomp($hashed_word[$j]);
+			if ("$given_hashes[$i]" eq "$hashed_word[$j]")
+			{
+				print "$words[$j]";
+			}
+		}
+	}
+}

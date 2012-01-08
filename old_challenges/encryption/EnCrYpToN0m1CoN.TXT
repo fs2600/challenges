@@ -1,0 +1,22 @@
+EnCrYpToN0m1CoN - Sp33|<  1337  +()  /\/\3  |34by
+=====================
+SCENARIO:		You've encountered a tool that is being used to encrypt data on a system but can't seem to 
+				find its man page. -h is no help, nor is google. You come to the conclusion that it must be
+				some custom algorithm that was developed in house. Mr. j0hnnyW seems to be a clever lad...
+
+TASK:			Reverse engineer the algorithm and develop a utility to decrypt files of data. 
+
+GIVEN:			The binary ***tr.exe***
+				sample_data.txt (it doesn't hurt to make your own either)
+				HINT FROM SHYFT - If in a unix environment you will need to use wine.
+
+POINTS:			35 Pts
+				Points will not be awarded on time of completion nor the efficiency of code, 
+				however, if a clever or novel solution is produced the judge may award bonus 
+				points not to exceed 50% of challenge value.
+				
+				
+	***NOTE***:
+	Have no fear, THIS PROGRAM IS NOT MALICIOUS IN ANY WAY. This program was
+	written by me(shyft), specifically for this challenge. No data is collected, nor can you be
+	uniquely identified by using it.

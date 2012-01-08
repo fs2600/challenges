@@ -1,0 +1,12 @@
+FIZZLE-FIZZLE POP-POP
+=====================
+SCENARIO:	None really... just for fun...no ulterior motives here...or are there?
+
+TASK:		Write a program that prints the numbers from 1 to 100. But for multiples of three
+			print "Fizz" instead of the number and for the multiples of five print "Buzz". For
+			numbers which are multiples of both three and five print "FizzBuzz". 
+
+POINTS:		5 pts
+			Points will not be awarded on time of completion  nor the efficiency of code, 
+			however, if a clever or novel solution is produced the judge may award bonus 
+			points not to exceed 100% of challenge value.
