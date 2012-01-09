@@ -29,10 +29,8 @@ if($help || $username eq "" || $password eq "") #help
     exit();
 }
 
-
-$mech = WWW::Mechanize->new();
 #$mech->cookie_jar($cookiejar);
-#$mech->agent('Mozilla/5.0 (Ubuntu; X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1'); #my firefox user agent
+$mech->agent('Mozilla/5.0 (Ubuntu; X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1'); #my firefox user agent so that the script gets the same code as the browser
 
 #navigate the login page
 $mech->get($url);
