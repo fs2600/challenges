@@ -37,10 +37,7 @@ if($dumpFriendIDs)
 
 sub dumpFriendIDs()
 {
-
-# split on //
-
-    login();
+    login(); 
     $raw = $mech->content();
     
     $raw =~ s/\\//g;
@@ -49,7 +46,7 @@ sub dumpFriendIDs()
     @tmp2 = split('","name":"' , $tmp[1]);
     $my_id = $tmp2[0]; #this should be it
     
-    $url = "http://facebook.com/profile.php?id=$my_id&sk=friends"; 
+    $url = "http://facebook.com/profile.php?id=$my_id&sk=friends"; #it even traverses the 302 redirect nicely
     
     #have $mech jump to my page of friends (friends page)
     $mech->get($url);
