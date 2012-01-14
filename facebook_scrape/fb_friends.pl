@@ -17,25 +17,33 @@ $password = '';
 $help = '';
 $friend = '';
 
-GetOptions("user=s"=>\$username, "pass=s"=>\$password, "friend=s"=>\$friend, "url=s"=>\$url, "help"=>\$help, "getNameByID=i"=>\$getNameByID, "dumpFriendIDs"=>\$dumpFriendIDs);
+@ids = {}; #global var for IDs
+
+GetOptions("user=s"=>\$username, "pass=s"=>\$password, "friend=s"=>\$friend, "url=s"=>\$url, "help"=>\$help, "getNameByID=i"=>\$getNameByID, "dumpIDs"=>\$dumpIDs, "dumpFriends"=>\$dumpFriends);
 
 if($help || $username eq "" || $password eq "" )
 {
     printHelp();
 }
 
-if($dumpFriendIDs)
+login(); #do this before any function does its work. this should help with the multiple login issue
+
+if($dumpIDs)
 {
-    dumpFriendIDs();
+    dumpIDs();
 }elsif($getNameByID ne "")
 {
     getNameByID($getNameByID);
+}elsif($dumpFriends)
+{   
+    dumpIDs();
+    dumpFriends();
 }else
 {
     printHelp();
 }
 
-sub dumpFriendIDs()
+sub dumpIDs()
 {
     login(); 
     $raw = $mech->content();
@@ -59,34 +67,48 @@ sub dumpFriendIDs()
 
     @ids = uniq(@ids);
     
-    foreach $line (@ids)
+    if($dumpIDs) #if this flag was set on the commandline, do this. 
     {
-        print "$line\n";
+        foreach $line (@ids)
+        {
+            print "$line\n";
+        }
     }
-        
-    #print "@ids\n";
-
 }
 
-sub getNameByID($id)
+sub getNameByID
 {
     #needed to recreate the $mech object to start fresh on the page. 
     $url = "http://www.facebook.com/profile.php?id=".$_[0];
     #print $url;
-    $mech = WWW::Mechanize->new(); 
+    #$mech = WWW::Mechanize->new(); 
     $mech->get($url);
-    $mech->form_number(1);
-    $mech->field("email", $username);
-    $mech->field("pass", $password);
-    $mech->click(); #submit form (login)
+    #$mech->form_number(1);
+    #$mech->field("email", $username);
+    #$mech->field("pass", $password);
+    #$mech->click(); #submit form (login)
     $raw = $mech->content();
 
     @tmp = split("<title>", $raw);
     @tmp2 = split("</title>" , $tmp[1]);
     $name = $tmp2[0];
-    print "$name\n";
+    if($dumpFriends)
+    {
+        print "$name\n";
+    }else
+    {
+        return $name;
+    }
 }
 
+sub dumpFriends()
+{
+    
+    foreach $id (@ids)
+    {
+        #print getNameByID($id);
+    }
+}
 
 sub login()
 {
@@ -97,16 +119,24 @@ sub login()
     $mech->field("email", $username);
     $mech->field("pass", $password);
     $mech->click(); #submit form (login)
+    $safe = $mech->text();
+    if($safe =~ m/You are trying too often/)
+    {
+        print "\ngot caught spamming... wait a little bit (an hour is what it took my account to unlock) before trying again\n";
+        exit();
+    }
 }
 
 sub printHelp()
 {
     print "
     find Facebook friends
-    ./fb_friends.pl --user=username --pass=password [--getNameByID=id| --dumpFriendIDs]
+    ./fb_friends.pl --user=username --pass=password [option]
     
+    options:
     --getNameByID=<id>  - returns the name associated with the ID
-    --dumpFriendIDs     - dump all IDs on your page
+    --dumpIDs           - dump all IDs on your page
+    --dumpFriends       - dump all of your friends names
 ";
     exit();
     }
