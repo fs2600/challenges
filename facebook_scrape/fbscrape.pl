@@ -17,7 +17,7 @@ $password = '';
 $help = '';
 $friend = '';
 
-GetOptions("user=s"=>\$username, "pass=s"=>\$password, "friend=s"=>\$friend, "url=s"=>\$url, "help"=>\$help);
+GetOptions("user=s"=>\$username, "pass=s"=>\$password, "friend=s"=>\$friend, "url=s"=>\$url, "newToken"=>\$newToken, "help"=>\$help);
 
 if($help || $username eq "" || $password eq "") #help
 {
@@ -29,9 +29,28 @@ if($help || $username eq "" || $password eq "") #help
     exit();
 }
 
+#this bit snatches a new token, which is invalidated after about two hours
+if($newToken && $username ne "" & $password ne "") 
+{
+    $mech->agent('Mozilla/5.0 (Ubuntu; X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1');
+    
+    $url = "https://graph.facebook.com";
+    $mech->get($url);
+    $mech->form_number(1);
+    $mech->field("email", $username);
+    $mech->field("pass", $password);
+    $mech->click(); #submit form (login)
+
+    $dump = $mech->content();
+    
+    @tmp = split("?access_token=", $dump);
+    @tmp2 = split(">https://graph.facebook.com/367501354973</a> (", $tmp[1]);
+    print $tmp2[0];
+    exit();
+}
+
 #$mech->cookie_jar($cookiejar);
 $mech->agent('Mozilla/5.0 (Ubuntu; X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1'); #my firefox user agent so that the script gets the same code as the browser
-
 #navigate the login page
 $mech->get($url);
 $mech->form_number(1);
