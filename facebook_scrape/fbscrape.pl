@@ -43,9 +43,9 @@ if($newToken && $username ne "" & $password ne "")
 
     $dump = $mech->content();
     
-    @tmp = split("?access_token=", $dump);
-    @tmp2 = split(">https://graph.facebook.com/367501354973</a> (", $tmp[1]);
-    print $tmp2[0];
+    @tmp = split("access_token=", $dump);
+    @tmp2 = split("\">https:\/\/graph.facebook.com\/367501354973<\/a> ", $tmp[1]);
+    print "$tmp2[0]\n";
     exit();
 }
 
@@ -96,10 +96,10 @@ $raw =~ s/&nbsp;/ /g;
 $raw =~ s/&amp;/&/g;
 $raw =~ s/>/> /g;
 $raw =~ s/&gt;/>/g;
-#$raw =~ s/<div/\n\t<div/g; #keep the divs in place
+$raw =~ s/<div/\n\t<div/g; #keep the divs in place
 
 #now remove all remaining html tags but kinda keep formatting
-#$raw =~ s/<.+?>//g; 
+$raw =~ s/<.+?>//g; 
 
 #$raw =~ s/<div class="msg">(.+?)<\/div>/<\/post>\n<post>\n/g;
 
