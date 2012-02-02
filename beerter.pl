@@ -30,7 +30,7 @@ $content = $mech->text();
 #$content =~ s/<.+?>//g;
 # 
 
-$content =~ s/_ago/_ago \n/g;
+$content =~ s/ ago/_ago \n/g;
 $content =~ s/Refresh results/ \n/g;
 $content =~ s/\s{3,}/\n/g;
 
