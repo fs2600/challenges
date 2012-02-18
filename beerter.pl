@@ -25,7 +25,7 @@ $mech->click();
 $mech->get("https://mobile.twitter.com/search/beer");
 $content = $mech->text();
 
-#$content =~ s/[^[:ascii:]]+//g;
+$content =~ s/[^[:ascii:]]+//g;
 #$content =~ s/<div/\n\t<div/g;
 #$content =~ s/<.+?>//g;
 # 
