@@ -22,8 +22,7 @@ for p in range(2,10000):
         for i in range(2*p,10000,p):
             is_prime[i] = False
 
-print primes
-exit()
+
 
 np = []
 
