@@ -18,7 +18,7 @@ target = "me/home"
 
 def fetchToken():
     global access_token
-    access_token = subprocess.check_output(["./fbscrape.pl", "--user=<uname>", "--pass=<pass>", "--newToken"])
+    access_token = subprocess.check_output(["./fbscrape.pl", "--user=shyft@shyft.us", "--pass=***REMOVED***", "--newToken"])
     access_token = access_token.rstrip()
     
 for opt in sys.argv:
